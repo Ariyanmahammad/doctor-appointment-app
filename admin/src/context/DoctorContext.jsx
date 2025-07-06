@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 export const DoctorContext = React.createContext();
 
 const DoctorContextProvider = (props) => {
-  const backendurl = import.meta.env.VITE_BACKEND_URL;
+  const backendurl = "https://doctor-appointment-app-backend-ygag.onrender.com"
   const [dToken, setDToken] = React.useState(
     localStorage.getItem("dToken") || null
   );

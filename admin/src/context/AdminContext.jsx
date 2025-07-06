@@ -14,7 +14,7 @@ const AdminContextProvider = (props) => {
   const [appointments, setAppointments] = React.useState([]);
   const [dashData, setDashData] = React.useState({});
 
-  const backendurl = import.meta.env.VITE_BACKEND_URL;
+  const backendurl = "https://doctor-appointment-app-backend-ygag.onrender.com"
 
   const getAllDoctors = async () => {
     try {
