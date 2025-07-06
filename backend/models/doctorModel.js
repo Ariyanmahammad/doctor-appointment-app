@@ -22,6 +22,8 @@ const doctorSchema = new mongoose.Schema(
     image: {
       type: String,
       required: true,
+      default:
+        "https://res.cloudinary.com/dy7b6k3jw/image/upload/v1686858609/doctor/doctor_1_eyzvzv.jpg",
     },
     phone: {
       type: String,
@@ -38,6 +40,7 @@ const doctorSchema = new mongoose.Schema(
     about: {
       type: String,
       required: true,
+      default: "",
     },
     fees: {
       type: Number,

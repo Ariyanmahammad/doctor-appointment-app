@@ -11,6 +11,7 @@ const DoctorProfile = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [initialData, setInitialData] = useState(null);
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     if (dToken) {
@@ -33,20 +34,23 @@ const DoctorProfile = () => {
       return toast.error("Please fill all required fields");
     }
 
-    const updateData = {
-      fees: Number(profileData.fees),
-      available: profileData.available,
-      address: profileData.address,
-    };
-
     try {
       setLoading(true);
+
+      const formData = new FormData();
+      formData.append("fees", profileData.fees);
+      formData.append("available", profileData.available);
+      formData.append("address", JSON.stringify(profileData.address));
+      formData.append("about", profileData.about || "");
+      if (image) formData.append("image", image); // 👈 include image
+
       const { data } = await axios.post(
         `${backendurl}/api/doctor/update-profile`,
-        updateData,
+        formData,
         {
           headers: {
             Authorization: `Bearer ${dToken}`,
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -54,7 +58,8 @@ const DoctorProfile = () => {
       if (data.success) {
         toast.success(data.message);
         setIsEdit(false);
-        getProfileData();
+        setImage(null);
+        getProfileData(); // refresh profile
       } else {
         toast.error(data.message);
       }
@@ -73,11 +78,31 @@ const DoctorProfile = () => {
       <div className="bg-white shadow-lg rounded-xl overflow-hidden p-6">
         {/* Top Section */}
         <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
-          <img
-            src={profileData.image}
-            alt="Doctor"
-            className="w-32 h-32 rounded-full object-cover border-4 border-indigo-100"
-          />
+          {isEdit ? (
+            <label htmlFor="doctor-image" className="cursor-pointer relative">
+              <img
+                src={
+                  image
+                    ? URL.createObjectURL(image)
+                    : profileData?.image || assets.profile_pic
+                }
+                alt="Doctor"
+                className="w-32 h-32 rounded-full object-cover border-4 border-indigo-100"
+              />
+              <input
+                type="file"
+                id="doctor-image"
+                hidden
+                onChange={(e) => setImage(e.target.files[0])}
+              />
+            </label>
+          ) : (
+            <img
+              src={profileData?.image || assets.profile_pic}
+              alt="Doctor"
+              className="w-32 h-32 rounded-full object-cover border-4 border-indigo-100"
+            />
+          )}
 
           <div className="flex-1">
             <h2 className="text-2xl font-bold text-gray-800">
@@ -112,7 +137,24 @@ const DoctorProfile = () => {
         {/* About Section */}
         <div className="mt-6 border-t pt-4">
           <h3 className="text-lg font-semibold text-gray-700 mb-2">About</h3>
-          <p className="text-gray-600 leading-relaxed">{profileData.about}</p>
+          {isEdit ? (
+            <textarea
+              value={profileData.about || ""}
+              onChange={(e) =>
+                setProfileData((prev) => ({
+                  ...prev,
+                  about: e.target.value,
+                }))
+              }
+              className="border px-3 py-2 rounded w-full text-gray-700"
+              rows={4}
+              placeholder="Write something about yourself..."
+            />
+          ) : (
+            <p className="text-gray-600 leading-relaxed">
+              {profileData.about || "No information provided."}
+            </p>
+          )}
         </div>
 
         {/* Address & Fees */}

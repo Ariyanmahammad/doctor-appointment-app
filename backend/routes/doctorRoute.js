@@ -13,6 +13,15 @@ doctorRouter.get('/dashboard',authDoctor,doctorDashboard);
 
 
 doctorRouter.get('/profile',authDoctor,doctorProfile);
-doctorRouter.post('/update-profile',authDoctor,updateDoctorProfile);
+import multer from "multer";
+const upload = multer({ dest: "uploads/" });
+
+doctorRouter.post(
+  '/update-profile',
+  authDoctor,
+  upload.single("image"), // 👈 handle file upload
+  updateDoctorProfile
+);
+
 
 export default doctorRouter;

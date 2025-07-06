@@ -74,7 +74,7 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-green-100 px-4">
       <form
         onSubmit={onSubmitHandler}
-        className="w-full max-w-md bg-white rounded-xl shadow-lg p-8 space-y-6"
+        className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl p-8 space-y-6"
       >
         <div className="text-center">
           <h2 className="text-3xl font-bold text-blue-700">
@@ -86,122 +86,126 @@ const Login = () => {
           </p>
         </div>
 
+        {/* SIGN UP FIELDS */}
         {state === "Sign Up" && (
           <>
-            {/* Name */}
-            <div>
-              <label className="block text-gray-700 mb-1 font-medium">
-                Name
-              </label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Your full name"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                required
-              />
-            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Name */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Full name"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  required
+                />
+              </div>
 
-            {/* DOB */}
-            <div>
-              <label className="block text-gray-700 mb-1 font-medium">
-                Date of Birth
-              </label>
-              <input
-                type="date"
-                value={dob}
-                onChange={(e) => setDob(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                required
-              />
-            </div>
+              {/* DOB */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Date of Birth
+                </label>
+                <input
+                  type="date"
+                  value={dob}
+                  onChange={(e) => setDob(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  required
+                />
+              </div>
 
-            {/* Gender */}
-            <div>
-              <label className="block text-gray-700 mb-1 font-medium">
-                Gender
-              </label>
-              <select
-                value={gender}
-                onChange={(e) => setGender(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                required
-              >
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
+              {/* Gender */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Gender
+                </label>
+                <select
+                  value={gender}
+                  onChange={(e) => setGender(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  required
+                >
+                  <option value="">Select</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Other</option>
+                </select>
+              </div>
 
-            {/* Phone */}
-            <div>
-              <label className="block text-gray-700 mb-1 font-medium">
-                Phone
-              </label>
-              <input
-                type="text"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="Your phone number"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                required
-              />
-            </div>
+              {/* Phone */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Phone
+                </label>
+                <input
+                  type="text"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="Phone number"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  required
+                />
+              </div>
 
-            {/* Address */}
-            {/* Address Line 1 */}
-            <div>
-              <label className="block text-gray-700 mb-1 font-medium">
-                Address Line 1
-              </label>
-              <input
-                type="text"
-                value={address.line1}
-                onChange={(e) =>
-                  setAddress((prev) => ({ ...prev, line1: e.target.value }))
-                }
-                placeholder="Line 1"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                required
-              />
-            </div>
+              {/* Address Line 1 */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Address Line 1
+                </label>
+                <input
+                  type="text"
+                  value={address.line1}
+                  onChange={(e) =>
+                    setAddress((prev) => ({ ...prev, line1: e.target.value }))
+                  }
+                  placeholder="Street, Area"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  required
+                />
+              </div>
 
-            {/* Address Line 2 */}
-            <div>
-              <label className="block text-gray-700 mb-1 font-medium">
-                Address Line 2
-              </label>
-              <input
-                type="text"
-                value={address.line2}
-                onChange={(e) =>
-                  setAddress((prev) => ({ ...prev, line2: e.target.value }))
-                }
-                placeholder="Line 2"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
+              {/* Address Line 2 */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Address Line 2
+                </label>
+                <input
+                  type="text"
+                  value={address.line2}
+                  onChange={(e) =>
+                    setAddress((prev) => ({ ...prev, line2: e.target.value }))
+                  }
+                  placeholder="City, Pincode"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+              </div>
             </div>
           </>
         )}
 
         {/* Email */}
         <div>
-          <label className="block text-gray-700 mb-1 font-medium">Email</label>
+          <label className="block text-sm font-medium text-gray-700">
+            Email
+          </label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             required
           />
         </div>
 
         {/* Password */}
         <div>
-          <label className="block text-gray-700 mb-1 font-medium">
+          <label className="block text-sm font-medium text-gray-700">
             Password
           </label>
           <div className="relative">
@@ -210,27 +214,27 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 pr-12"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 pr-10"
               required
             />
             <span
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-600"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-600 text-sm"
             >
               {showPassword ? "🙈" : "👁️"}
             </span>
           </div>
         </div>
 
-        {/* Submit Button */}
+        {/* Submit */}
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition duration-300"
         >
           {state}
         </button>
 
-        {/* Switch link */}
+        {/* Switch */}
         <p className="text-center text-sm text-gray-600">
           {state === "Sign Up"
             ? "Already have an account?"

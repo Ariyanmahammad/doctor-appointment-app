@@ -176,15 +176,35 @@ const doctorProfile = async (req, res) => {
 };
 
 //API to update doctor profile for doctor panel
+import cloudinary from "cloudinary";
+
 const updateDoctorProfile = async (req, res) => {
   try {
     const docId = req.docId;
-    const { fees, address, available } = req.body;
-    await doctorModel.findByIdAndUpdate(docId, { fees, address, available });
-    res.json({ success: true, message: "Profile updated" });
+    const { fees, address, available, about } = req.body;
+    const imageFile = req.file;
+
+    const updateData = {
+      fees,
+      available,
+      address: JSON.parse(address), // 👈 handle JSON string
+    };
+    if (about) {
+      updateData.about = about;
+    }
+
+    if (imageFile) {
+      const result = await cloudinary.uploader.upload(imageFile.path, {
+        resource_type: "image",
+      });
+      updateData.image = result.secure_url;
+    }
+
+    await doctorModel.findByIdAndUpdate(docId, updateData);
+    res.json({ success: true, message: "Profile updated successfully" });
   } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: error.message });
+    console.error(error);
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
