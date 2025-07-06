@@ -3,6 +3,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { DoctorContext } from "../../context/DoctorContext";
 import { AppContext } from "../../context/AppContext";
+import { assets } from "../../assets/assets";
+
 
 const DoctorProfile = () => {
   const { dToken, profileData, setProfileData, getProfileData, backendurl } =
