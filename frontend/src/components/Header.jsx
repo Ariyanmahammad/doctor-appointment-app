@@ -13,7 +13,7 @@ const Header = () => {
           </h1>
 
           <div className="flex items-center gap-4 text-amber-50 text-sm md:text-base">
-            <img src={assets.group_profiles} alt="Profiles" className="w-10" />
+{/*             <img src={assets.group_profiles} alt="Profiles" className="w-10" /> */}
             <p>
               Browse a trusted list of certified doctors and schedule
               appointments effortlessly.
@@ -25,7 +25,7 @@ const Header = () => {
             className="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-amber-50 px-6 py-2 rounded-full font-semibold transition transform hover:scale-105 duration-300"
           >
             Book an Appointment
-            <img src={assets.arrow_icon} alt="Arrow" className="w-4" />
+{/*             <img src={assets.arrow_icon} alt="Arrow" className="w-4" /> */}
           </a>
         </div>
 
