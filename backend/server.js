@@ -21,8 +21,20 @@ connectDB();
 connectCloudinary();
 
 //middlewares
-app.use(cors());
+//middlewares
+const allowedOrigins = [
+  'https://doctor-appointment-app-frontend-5059.onrender.com',
+];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
+
 app.use(express.json());
+
 
 //api endpoints
 app.use('/api/admin', adminRouter);
