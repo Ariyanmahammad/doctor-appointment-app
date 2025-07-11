@@ -24,6 +24,7 @@ connectCloudinary();
 //middlewares
 const allowedOrigins = [
   'https://doctor-appointment-app-frontend-5059.onrender.com',
+  'https://doctor-appointment-app-admin-fl70.onrender.com', // admin panel
 ];
 
 app.use(
