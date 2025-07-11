@@ -24,15 +24,23 @@ connectCloudinary();
 //middlewares
 const allowedOrigins = [
   'https://doctor-appointment-app-frontend-5059.onrender.com',
-  'https://doctor-appointment-app-admin-fl70.onrender.com', // admin panel
+  'https://doctor-appointment-app-admin-fl70.onrender.com',
 ];
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // allow non-browser clients like Postman
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
+
 
 app.use(express.json());
 
